@@ -30,4 +30,4 @@ Contributors
 
 
 Open issues/bugs
-Changing how the crossword is printed out, certain spacing is sometimes off.
+Currently seg faulting when program tries to load all of the data from the file, 
