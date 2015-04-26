@@ -1,0 +1,5 @@
+work, I, 5, a, Wher did Vernon and Petunia first meet __?
+ravenclaw, A, 5, d, To which house did Olivander belong to __?
+seven, E, 1, a, How many subjects do first years study __?
+binns, L, 7 , a, Which Proffessor is a ghost __?
+hatstall, B, 1, d, Term for a student whose sorting is over 5 minutes.
