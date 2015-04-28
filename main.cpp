@@ -69,19 +69,23 @@ void guessing(int times)
 	bool right = false;
 	puzzle *cross = new puzzle();
 		
-	cout<<"Please enter the number of which question you'd like to answer: "<<endl;
+	cout<<"Please enter the number of which question you'd like to answer or 'q' to quit: "<<endl;
 	getline(cin,n);
+	if(n == "q")
+	{
+		return;
+	}
 	num = std::stoi(n);
 	correct = cross->getWord(num);//index of word looking for
 	
-	//do
-	//{
-		/*if(questions > 0)
+	do
+	{
+		if(questions > 0)
 		{
 			getline(cin,n);
 			num = std::stoi(n);
 			correct = cross->getWord(num);
-		}*/
+		}
 		cout<<"Please enter your guess. Enter 'h' for a hint or enter 'a' for the answer."<<endl;
 		getline(cin,guess);
 		//cout<<"c"<<correct<<endl;
@@ -91,24 +95,24 @@ void guessing(int times)
 		{
 			if(guess == "h")
 			{
-				while(htry <= 4)
-				{
-					htry++;
-					cross->hint(correct,num,htry);
-					
-				}
+			
+				htry++;
+				cross->hint(correct,num,htry);
+				cout<<"Please try again: "<<endl;
+				getline(cin,guess);	
+				if(htry == 4)
 				right = true;
 			}
 			else if(guess == "a")
 			{
 				cross->currentBoard(correct);
-				
+				break;
 			}
 			else if(guess == correct)
 			{
 				cross->currentBoard(correct);
 				cross->clues();
-				cout<<"Great Job you got it! Enter the the number of the next question you'd like to answer: "<<endl;
+				cout<<"Great Job you got it!"<<endl;
 				times++;
 				/*if(times <=5)
 				guessing(times);
@@ -129,7 +133,7 @@ void guessing(int times)
 		}
 		right = false;
 		questions++;
-	//}while(questions >= 5);
+	}while(questions >= 5);
 }
 
 
@@ -178,6 +182,7 @@ int main()
 				count++;
 				}
 				//cross->setCurrentBoard(num);
+				cross->check();
 				break;
 			}
 			
