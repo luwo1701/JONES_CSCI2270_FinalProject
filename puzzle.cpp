@@ -51,13 +51,14 @@ void puzzle::setCurrentBoard()
 {
 	position word;
 	
-	for(int j = 0; j < answers.size(); j++)
+	for(int i = 0; i < answers.size();i++)
 	{
-		word.row = answers[j].x;
-		word.col = answers[j].y;
-		word.n = answers[j].word[0];
+		word.n = answers[i].word[0];
+		word.row = answers[i].x;
+		word.col = answers[i].y;
 		words.push_back(word);
 	}
+
 }
 
 //This function creates an empty board that is first displayed to 
@@ -88,7 +89,7 @@ void puzzle::emptyBoard()
 		cout<<row[r]<<" ";
 		for(int c = 0; c<12; c++)
 		{
-			cout<<Board[r][c]<<" ";
+			cout<<board[r][c].n<<" ";
 		}
 		cout<<endl;
 		cout<<"    ";
@@ -103,7 +104,10 @@ string puzzle::getWord(int num)
 	for(int t = 0; t < answers.size(); t++)
 	{
 		if(num == t)
-		return answers[t].word;
+		{
+			words[t].guess = true;
+			return answers[t].word;
+		}
 	}
 }
 
@@ -120,6 +124,7 @@ void puzzle::clues()
 		{
 			cout<<"   "<<h<<answers[h].clue<<endl;
 		}
+
 	}
 	cout<<endl;
 	cout<< "Down Words:"<<endl;
@@ -136,18 +141,39 @@ void puzzle::clues()
 //This function provides hints that help
 //the user discover the answer. if the 
 //user is still struggling after 3 attempts, function gives answer
-void puzzle::hint(correct,num)
+void puzzle::hint(string correct,int num, int htry)
 {
-	if(correct num != answers[num].word)
+	int tot;
+	for(int i = 0; i < correct.size(); i++)
 	{
-		cout << answers[num].word<<endl;
+		tot += correct[i];
+	}
+
+	if(correct == answers[num].word && htry == 1)
+	{
+		cout << "The first letter is "<< correct[0]<<endl;
+	}
+
+	if(correct == answers[num].word && htry == 2)
+	{
+		cout << "There are a total of "<<tot<<" letters."<<endl;
+	}
+
+	if(correct == answers[num].word && htry == 3)
+	{
+		cout << "Ends with "<< correct[correct.length()-1]<<endl;
+	}
+
+	if(correct == answers[num].word && htry == 4)
+	{
+		cout << "The answer is: "<<correct<<endl;
 	}
 	
 }
 
 //This function encodes the clues to the 
 //words in the puzzle
-void puzzle::cipher()
+/*void puzzle::cipher()
 {
 	for(int i = 0; i < answers[i].clue.length(); i++)
 	{
@@ -177,98 +203,87 @@ void puzzle::cipher()
 	}
 	cout<<endl;
 	
-}
+}*/
 //This function determines where the word is placed after the
 //user has correctly guessed the word. By first looking at if 
 //the word is across or down, the function then increases row/column index.
 void puzzle::fillBoard(string correct, int num)
 {
-	//find which word looking for
-	//find its position on board
-	//store position in vector that places word on board
 	int t = 0;
 	position word;
 	
 	char row[] = {'A', 'B', 'C','D','E','F','G','H','I','J','K','L'};
 	string column[] = {"0","1","2","3","4","5","6","7","8","9","10","11"};
-	char Board[12][12];
-	
-	for(int i = 0; i < 12; i++)
-	{
-		for(int j = 0; j <12; j++)
-		{
-						
-			board[i][j].n = '*';
-			
-			if(correct == answers[num].word)
-			{
-				if(answers[num].type == " a")
-				{
-					
-					for(int z = 0; z < answers[num].word.length(); z++)
-					{
-						board[word.row][word.col].n = answers[num].word[z];
-						word.col +=1;
-					}
-				}
-				else
-				{
-					
-					for(int u = 0; u < answers[num].word.length(); u++)
-					{
-						board[word.row][word.col].n = answers[num].word[u];
-						word.row++;
-					}
-				}
-			}
 
-		}
-	}
-
-	cout<<"    ";
-	for(int m = 0; m<12;m++)
-	{
-		cout<<column[m]<<" ";
-	}
-	cout<<endl;
-	cout<<"    ";
-	
-	for(int r = 0; r<12; r++)
-	{
-		cout<<row[r]<<" ";
-		for(int c = 0; c<12; c++)
-		{
-			cout<<board[r][c].n<<" ";
-		}
-		cout<<endl;
-		cout<<"    ";
-	}
-}
-
-//This function prints out ALL currently
-//and correctly guessed words onto the board
-void puzzle::currentBoard()
-{
-	//store guessed words positions in vector(first character of each word)
-	//print out ALL guessed words on board
-	
-	char row[] = {'A', 'B', 'C','D','E','F','G','H','I','J','K','L'};
-	string column[] = {"0","1","2","3","4","5","6","7","8","9","10","11"};
-	
-	setCurrentBoard();
 	
 	for(int i = 0; i < 12; i++)
 	{
 		for(int j = 0; j < 12; j++)
 		{
-			board[i][j].n = '*';
-			
-			if(i == words[i].row && j == words[j].col)
+						
+			if(correct == answers[num].word)
 			{
-				board[i][j].n = words[i].n;
+				int a = answers[num].x;
+				int b = answers[num].y;
+				//word.n = answers[num].word[0];
+				//word.guess = true;
+
+				if(answers[num].type == " a")
+				{
+					for(int z = 0; z < answers[num].word.length(); z++)
+					{
+						board[a][b].n = answers[num].word[z];
+						b++;
+
+					}
+				}
+				else
+				{
+					for(int u = 0; u < answers[num].word.length(); u++)
+					{
+						//board[words[num].row][words[num].col].n = answers[num].word[u];
+						//words[num].row++;
+						board[a][b].n = answers[num].word[u];
+						a++;
+					}
+				}
 			}
-			
-			
+
+		}
+	}
+}
+
+//This function prints out ALL currently
+//and correctly guessed words onto the board
+void puzzle::currentBoard(string correct)
+{
+	
+	char row[] = {'A', 'B', 'C','D','E','F','G','H','I','J','K','L'};
+	string column[] = {"0","1","2","3","4","5","6","7","8","9","10","11"};
+
+	for(int i = 0; i < words.size(); i++)
+	{
+		if(words[i].guess == true)
+		{
+			board[words[i].row][words[i].col].n = words[i].n;
+			//cout<<words[j].n<<endl;
+			if(answers[i].type == " a")
+			{
+				for(int z = 0; z < answers[i].word.length(); z++)
+				{
+					board[words[i].row][words[i].col].n = answers[i].word[z];
+					words[i].col++;
+
+				}
+			}
+			else
+			{
+				for(int u = 0; u < answers[i].word.length(); u++)
+				{
+					board[words[i].row][words[i].col].n = answers[i].word[u];
+					words[i].row++;
+				}
+			}
 		}
 	}
 	
@@ -299,40 +314,34 @@ void puzzle::currentBoard()
 //showing the end result after completing the puzzle
 void puzzle::fullBoard()//int x, int y, string word, string type
 {
-	int t = 0;
-	//vector<puzz> answers;
 	char row[] = {'A', 'B', 'C','D','E','F','G','H','I','J','K','L'};
 	string column[] = {"0","1","2","3","4","5","6","7","8","9","10","11"};
-	char Board[12][12];
-	for(int i = 0; i < 12; i++)
+
+	for(int i = 0; i < words.size(); i++)
 	{
-		for(int j = 0; j <12; j++)
+
+		board[words[i].row][words[i].col].n = words[i].n;
+		//cout<<words[j].n<<endl;
+		if(answers[i].type == " a")
 		{
-			int x = answers[i].x;
-			int y = answers[i].y;
-			if(i == answers[i].x && j == answers[j].y)
-			//int x = 2;
-			//int y = 2;
-			//if(i == x && j == y)
+			for(int z = 0; z < answers[i].word.length(); z++)
 			{
-				if(answers[i].type == " a" && t < answers[i].word.length())
-				{
-					//Board[x][y] = answers[i].word[t];
-					Board[answers[i].x][answers[j].y] = answers[i].word[t];
-					y++;//
-					t++;
-				}
-				else if(t < answers[i].word.length())
-				{
-					Board[x][y] = answers[i].word[t];
-					x++;//
-					t++;
-				}
+				board[words[i].row][words[i].col].n = answers[i].word[z];
+				words[i].col++;
+
 			}
-			else
-			Board[i][j] = '*';
 		}
+		else
+		{
+			for(int u = 0; u < answers[i].word.length(); u++)
+			{
+				board[words[i].row][words[i].col].n = answers[i].word[u];
+				words[i].row++;
+			}
+		}
+		
 	}
+	
 	cout<<"    ";
 	for(int m = 0; m<12;m++)
 	{
@@ -346,7 +355,7 @@ void puzzle::fullBoard()//int x, int y, string word, string type
 		cout<<row[r]<<" ";
 		for(int c = 0; c<12; c++)
 		{
-			cout<<Board[r][c]<<" ";
+			cout<<board[r][c].n<<" ";
 		}
 		cout<<endl;
 		cout<<"    ";
