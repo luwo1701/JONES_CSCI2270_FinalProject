@@ -1,0 +1,5 @@
+five, B, 5, d, How many dogs were in Robin's apartement when meeting Ted __?
+license, E, 2, d, What does Ranjit NOT have __?
+stuart, K, 8, a, Who was the first intervention for __?
+evelyn, E, 5 , a, What is Ted's middle name__?
+fiero, B, 1, a, What type of car did Marshall own __?
