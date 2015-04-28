@@ -1,5 +1,5 @@
-work, I, 5, a, Wher did Vernon and Petunia first meet __?
-ravenclaw, A, 5, d, To which house did Olivander belong to __?
-seven, E, 1, a, How many subjects do first years study __?
-binns, L, 7 , a, Which Proffessor is a ghost __?
-hatstall, B, 1, d, Term for a student whose sorting is over 5 minutes.
+diamond, I, 5, a, What was the shape of the first crossword __?
+pompeii, A, 5, d, Word square puzzles were found in the ruins of __.
+nonogram, E, 7, a, What is a Japanese crossword called__?
+paris, L, 7 , a, Where were crosswords banned during WWII __?
+crossword, B, 1, d, What the first crossword puzzle was called.
