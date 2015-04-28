@@ -14,6 +14,23 @@ position board[12][12];
 //This function takes the letter of the row and changes it to 
 //its index that is then used to determine which row it is
 //in the crossword puzzle
+void puzzle::check()
+{
+	cout<<"Checking whats in vector answers: "<<endl;
+	for(int i = 0; i <answers.size(); i++)
+	{
+		cout<<answers[i].word<<"word"<<endl;
+
+	}
+
+	cout<<"checking whats in vector words: "<<endl;
+	for(int w = 0; w < words.size();w++)
+	{
+		cout<<words[w].n<<"word"<<endl;
+		cout<<words[w].row<<"row"<<words[w].col<<"col"<<endl;
+		cout<<words[w].guess<<"xguessed"<<endl;
+	}
+}
 int puzzle::setPos(string x)
 {
 	string row[] = {" A", " B", " C"," D"," E"," F"," G"," H"," I"," J"," K"," L"};
@@ -105,7 +122,7 @@ string puzzle::getWord(int num)
 	{
 		if(num == t)
 		{
-			words[t].guess = true;
+			words[t].guess++;
 			return answers[t].word;
 		}
 	}
@@ -177,10 +194,10 @@ void puzzle::cipher()
 {
 	for(int i = 0; i < answers[i].clue.length(); i++)
 	{
-		if(answers[i].clue[i] == "a")
-		answers[i].clue[i] = "o";
-		else if (answers[i].clue[i] == "e")
-		answers[i].clue[i] = "k";
+		if(answers[i].clue[i] == 'a')
+		answers[i].clue[i] = 'o';
+		else if (answers[i].clue[i] == 'e')
+		answers[i].clue[i] = 'k';
 	}
 	
 	cout<<endl;
@@ -216,40 +233,38 @@ void puzzle::fillBoard(string correct, int num)
 	string column[] = {"0","1","2","3","4","5","6","7","8","9","10","11"};
 
 	
-	for(int i = 0; i < 12; i++)
-	{
-		for(int j = 0; j < 12; j++)
+	for(int i = 0; i < words.size(); i++)
+	{			
+		if(correct == answers[num].word && words[i].guess == 1)
 		{
-						
-			if(correct == answers[num].word)
+			int a = answers[num].x;
+			int b = answers[num].y;
+			//word.n = answers[num].word[0];
+			//word.guess = true;
+
+			if(answers[num].type == " a")
 			{
-				int a = answers[num].x;
-				int b = answers[num].y;
-				//word.n = answers[num].word[0];
-				//word.guess = true;
-
-				if(answers[num].type == " a")
+				for(int z = 0; z < answers[num].word.length(); z++)
 				{
-					for(int z = 0; z < answers[num].word.length(); z++)
-					{
-						board[a][b].n = answers[num].word[z];
-						b++;
+					board[a][b].n = answers[num].word[z];
+					b++;
 
-					}
-				}
-				else
-				{
-					for(int u = 0; u < answers[num].word.length(); u++)
-					{
-						//board[words[num].row][words[num].col].n = answers[num].word[u];
-						//words[num].row++;
-						board[a][b].n = answers[num].word[u];
-						a++;
-					}
 				}
 			}
-
+			else
+			{
+				for(int u = 0; u < answers[num].word.length(); u++)
+				{
+					//board[words[num].row][words[num].col].n = answers[num].word[u];
+					//words[num].row++;
+					board[a][b].n = answers[num].word[u];
+					a++;
+				}
+			}
 		}
+		else
+			break;
+		
 	}
 }
 
@@ -263,7 +278,7 @@ void puzzle::currentBoard(string correct)
 
 	for(int i = 0; i < words.size(); i++)
 	{
-		if(words[i].guess == true)
+		if(words[i].guess == 1)
 		{
 			board[words[i].row][words[i].col].n = words[i].n;
 			//cout<<words[j].n<<endl;
@@ -285,6 +300,8 @@ void puzzle::currentBoard(string correct)
 				}
 			}
 		}
+		else
+			break;
 	}
 	
 	cout<<"    ";
@@ -319,24 +336,27 @@ void puzzle::fullBoard()//int x, int y, string word, string type
 
 	for(int i = 0; i < words.size(); i++)
 	{
-
-		board[words[i].row][words[i].col].n = words[i].n;
-		//cout<<words[j].n<<endl;
-		if(answers[i].type == " a")
+		if(words[i].guess == 0)
 		{
-			for(int z = 0; z < answers[i].word.length(); z++)
-			{
-				board[words[i].row][words[i].col].n = answers[i].word[z];
-				words[i].col++;
 
+			board[words[i].row][words[i].col].n = words[i].n;
+			//cout<<words[j].n<<endl;
+			if(answers[i].type == " a")
+			{
+				for(int z = 0; z < answers[i].word.length(); z++)
+				{
+					board[words[i].row][words[i].col].n = answers[i].word[z];
+					words[i].col++;
+
+				}
 			}
-		}
-		else
-		{
-			for(int u = 0; u < answers[i].word.length(); u++)
+			else
 			{
-				board[words[i].row][words[i].col].n = answers[i].word[u];
-				words[i].row++;
+				for(int u = 0; u < answers[i].word.length(); u++)
+				{
+					board[words[i].row][words[i].col].n = answers[i].word[u];
+					words[i].row++;
+				}
 			}
 		}
 		
