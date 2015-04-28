@@ -19,7 +19,7 @@ struct position
 	char n;
 	int row;
 	int col;
-	bool guess = false;
+	int guess = 0;
 };
 
 
@@ -37,6 +37,7 @@ class puzzle
 		void hint(std::string,int,int);//after 3 attempts, function gives user hints leading to answer
 		void cipher();//takes clues and encodes them using a cipher for user to guess
 		std::string getWord(int);//gets the correct word for clue user chose
+		//void check();
 	private:
 		//std::vector<puzz>answers;
 		
