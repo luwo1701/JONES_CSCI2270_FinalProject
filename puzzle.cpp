@@ -11,11 +11,7 @@ vector<puzz> answers;
 vector<position> words;
 position board[12][12];
 
-//This function takes the letter of the row and changes it to 
-//its index that is then used to determine which row it is
-//in the crossword puzzle
-void puzzle::check()
-{
+/*{
 	cout<<"Checking whats in vector answers: "<<endl;
 	for(int i = 0; i <answers.size(); i++)
 	{
@@ -30,7 +26,10 @@ void puzzle::check()
 		cout<<words[w].row<<"row"<<words[w].col<<"col"<<endl;
 		cout<<words[w].guess<<"xguessed"<<endl;
 	}
-}
+}*/
+//This function takes the letter of the row and changes it to 
+//its index that is then used to determine which row it is
+//in the crossword puzzle
 int puzzle::setPos(string x)
 {
 	string row[] = {" A", " B", " C"," D"," E"," F"," G"," H"," I"," J"," K"," L"};
