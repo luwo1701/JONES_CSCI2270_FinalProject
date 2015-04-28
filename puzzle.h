@@ -19,6 +19,7 @@ struct position
 	char n;
 	int row;
 	int col;
+	bool guess = false;
 };
 
 
@@ -31,12 +32,11 @@ class puzzle
 		void emptyBoard();//prints out empty/initial board
 		void fullBoard();//prints out ALL answers on board
 		void fillBoard(std::string,int);//prints out currently guessing word onto board
-		void currentBoard();//prints out ALL answers correctly guessed so far
+		void currentBoard(std::string);//prints out ALL answers correctly guessed so far
 		void clues();//prints out clues for across and down words
-		void hint();//after 3 attempts, function gives user hints leading to answer
+		void hint(std::string,int,int);//after 3 attempts, function gives user hints leading to answer
 		void cipher();//takes clues and encodes them using a cipher for user to guess
 		std::string getWord(int);//gets the correct word for clue user chose
-		//void dictionary();
 	private:
 		//std::vector<puzz>answers;
 		
