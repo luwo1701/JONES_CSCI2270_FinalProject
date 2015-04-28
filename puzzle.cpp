@@ -173,7 +173,7 @@ void puzzle::hint(string correct,int num, int htry)
 
 //This function encodes the clues to the 
 //words in the puzzle
-/*void puzzle::cipher()
+void puzzle::cipher()
 {
 	for(int i = 0; i < answers[i].clue.length(); i++)
 	{
@@ -203,7 +203,7 @@ void puzzle::hint(string correct,int num, int htry)
 	}
 	cout<<endl;
 	
-}*/
+}
 //This function determines where the word is placed after the
 //user has correctly guessed the word. By first looking at if 
 //the word is across or down, the function then increases row/column index.
