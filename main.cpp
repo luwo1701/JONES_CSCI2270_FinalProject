@@ -55,11 +55,14 @@ void puzzleSetup(string filename)
 	}
 	file.close();
 	
+	cross->setCurrentBoard();
 }
 
-void guessing()
+void guessing(int times)
 {
 	int user,num;
+	int questions = 0;
+	int htry = 0;
 	string guess, n,correct;
 	//ifstream file;
 	bool end = false;
@@ -71,29 +74,62 @@ void guessing()
 	num = std::stoi(n);
 	correct = cross->getWord(num);//index of word looking for
 	
-	cout<<"Please enter your guess. If you'd like a hint enter 'h' or if you'd like the answer enter 'a'"<<endl;
-	getline(cin,guess);
-	while(!right)
-	{
-		if(guess == "h")
-		cross->hint(correct,num);
-		
-		else if(guess == "a")
+	//do
+	//{
+		/*if(questions > 0)
 		{
-			cross->fillBoard(correct,num);
-			right = true;
-		}
-		else if(guess == correct)
-		{
-			cross->currentBoard();
-			cross->clues();
-			cout<<"Great Job you got it! Enter the the number of the next question you'd like to answer: "<<endl;
 			getline(cin,n);
+			num = std::stoi(n);
 			correct = cross->getWord(num);
-			right = true;
-			
+		}*/
+		cout<<"Please enter your guess. Enter 'h' for a hint or enter 'a' for the answer."<<endl;
+		getline(cin,guess);
+		//cout<<"c"<<correct<<endl;
+		//cout<<"n"<<num<<endl;
+		cross->fillBoard(correct,num);
+		while(!right)
+		{
+			if(guess == "h")
+			{
+				while(htry <= 4)
+				{
+					htry++;
+					cross->hint(correct,num,htry);
+					
+				}
+				right = true;
+			}
+			else if(guess == "a")
+			{
+				cross->currentBoard(correct);
+				
+			}
+			else if(guess == correct)
+			{
+				cross->currentBoard(correct);
+				cross->clues();
+				cout<<"Great Job you got it! Enter the the number of the next question you'd like to answer: "<<endl;
+				times++;
+				/*if(times <=5)
+				guessing(times);
+				else
+				{
+					cout<<"Amazing! You solved the puzzle!"<<endl;
+				}*/
+				//getline(cin,n);
+				//correct = cross->getWord(num);
+				right = true;
+				
+			}
+			else if(guess != correct)
+			{
+				cout<<"Please try again: "<<endl;
+				getline(cin,guess);	
+			}
 		}
-	}
+		right = false;
+		questions++;
+	//}while(questions >= 5);
 }
 
 
@@ -104,7 +140,10 @@ int main()
 	
 	
 	string filename, correct,n,guess;
-	int user,num;
+	int user;
+	int count = 0;
+	int times = 0;
+	int num = 0;
 	//ifstream file;
 	bool end = false;
 	bool right = false;
@@ -126,41 +165,65 @@ int main()
 			case 1:
 			{
 				filename = "Hclues.txt";
-				puzzleSetup(filename);
+				if(count < 1)
+				{
+					puzzleSetup(filename);
+					count++;
+				}
 				cross->emptyBoard();
 				cross->clues();
-				guessing();
-			
+				while(count <=6)
+				{
+				guessing(times);
+				count++;
+				}
+				//cross->setCurrentBoard(num);
 				break;
 			}
 			
 			case 2:
 			{
 				filename = "HIclues.txt";
-				puzzleSetup(filename);
+				if(count < 1)
+				{
+					puzzleSetup(filename);
+					count++;
+				}
 				cross->emptyBoard();
 				cross->clues();
-				guessing();
+				while(count <=6)
+				{
+				guessing(times);
+				count++;
+				}
 				break;
 			}
 			
 			case 3:
 			{
 				filename = "Sclues.txt";
-				puzzleSetup(filename);
+				if(count < 1)
+				{
+					puzzleSetup(filename);
+					count++;
+				}
 				cross->emptyBoard();
 				cross->clues();
-				guessing();
+				guessing(times);
 				break;
 			}
 			
 			case 4:
 			{
 				filename = "Xclues.txt";
-				puzzleSetup(filename);
+				if(count < 1)
+				{
+					puzzleSetup(filename);
+					count++;
+				}
 				cross->emptyBoard();
 				cross->clues();
-				guessing();
+				guessing(times);
 				break;
 			}
 			
@@ -187,5 +250,31 @@ int main()
 	return 0;
 }
 
+//puzzle setup-->reads data from file, 
+//			 calls setAnswer-->puts 'answers' into vector, 
+//			 calls setCurrentBoard-->puts spots of words into vector
+//
+//emptyBoard-->sets all spots on board to '*'
+//
+//clues-->prints out the across and down clues
+//
+//guessing-->cout statements for user, 
+//			 calls getWord-->returns the correct word to question
+//			 calls fillboard-->replaces '*' spots on board with words spots, 
+//			 calls currentBoard-->prints out all guessed words on board
+//			 calls fullBoard-->prints ALL words on board, 
+//			 calls hint-->provides user with info about word (how many spaces,first char etc)
+//
+
+//--------------------TO FIX-DO------------------------------
+//fix seg fault of guessing 1+
+//add cipher
+//fix a function
+//finish h function
 
 
+//-------------------WHAT WORKS-------------------------------
+//printing clues
+//printing empty board
+//file reading
+//
