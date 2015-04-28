@@ -1,5 +1,5 @@
-work, I, 5, a, Wher did Vernon and Petunia first meet __?
-ravenclaw, A, 5, d, To which house did Olivander belong to __?
-seven, E, 1, a, How many subjects do first years study __?
-binns, L, 7 , a, Which Proffessor is a ghost __?
-hatstall, B, 1, d, Term for a student whose sorting is over 5 minutes.
+cosmo, I, 5, a, What is Kramer's first name __?
+jerry, A, 5, d, Who is the comedian __?
+ralph, E, 1, a, What was the name of Kramer's dog __?
+mailman, L, 7 , a, What does Newman do for a living __?
+manssiere, B, 1, d, What clothing item did kramer try to market __?
