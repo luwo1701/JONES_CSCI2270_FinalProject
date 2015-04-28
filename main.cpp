@@ -249,32 +249,3 @@ int main()
 	
 	return 0;
 }
-
-//puzzle setup-->reads data from file, 
-//			 calls setAnswer-->puts 'answers' into vector, 
-//			 calls setCurrentBoard-->puts spots of words into vector
-//
-//emptyBoard-->sets all spots on board to '*'
-//
-//clues-->prints out the across and down clues
-//
-//guessing-->cout statements for user, 
-//			 calls getWord-->returns the correct word to question
-//			 calls fillboard-->replaces '*' spots on board with words spots, 
-//			 calls currentBoard-->prints out all guessed words on board
-//			 calls fullBoard-->prints ALL words on board, 
-//			 calls hint-->provides user with info about word (how many spaces,first char etc)
-//
-
-//--------------------TO FIX-DO------------------------------
-//fix seg fault of guessing 1+
-//add cipher
-//fix a function
-//finish h function
-
-
-//-------------------WHAT WORKS-------------------------------
-//printing clues
-//printing empty board
-//file reading
-//
