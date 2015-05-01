@@ -27,17 +27,17 @@ void puzzleSetup(string filename)
 	ifstream file;
 	bool end = false;
 	puzzle *cross = new puzzle();
-	
-	
+
+
 	file.open(filename);
-		
+
 	while(!file.eof())
 	{
 		getline(file,line);
 		stringstream ss(line);
-		
+
 		//cross->emptyBoard();
-		
+
 		while(getline(ss,hold,','))
 		{
 			word = hold;
@@ -49,12 +49,12 @@ void puzzleSetup(string filename)
 			type = hold;
 			getline(ss,hold,',');
 			clue = hold;
-			
+
 			cross->setAnswer(word,x,y,type,clue);
 		}
 	}
 	file.close();
-	
+
 	cross->setCurrentBoard();
 }
 
@@ -68,7 +68,7 @@ void guessing(int times)
 	bool end = false;
 	bool right = false;
 	puzzle *cross = new puzzle();
-		
+
 	cout<<"Please enter the number of which question you'd like to answer or 'q' to quit: "<<endl;
 	getline(cin,n);
 	if(n == "q")
@@ -77,7 +77,7 @@ void guessing(int times)
 	}
 	num = std::stoi(n);
 	correct = cross->getWord(num);//index of word looking for
-	
+
 	do
 	{
 		if(questions > 0)
@@ -95,11 +95,11 @@ void guessing(int times)
 		{
 			if(guess == "h")
 			{
-			
+
 				htry++;
 				cross->hint(correct,num,htry);
 				cout<<"Please try again: "<<endl;
-				getline(cin,guess);	
+				getline(cin,guess);
 				if(htry == 4)
 				right = true;
 			}
@@ -123,12 +123,12 @@ void guessing(int times)
 				//getline(cin,n);
 				//correct = cross->getWord(num);
 				right = true;
-				
+
 			}
 			else if(guess != correct)
 			{
 				cout<<"Please try again: "<<endl;
-				getline(cin,guess);	
+				getline(cin,guess);
 			}
 		}
 		right = false;
@@ -141,32 +141,39 @@ void guessing(int times)
 
 int main()
 {
-	
-	
+
+
 	string filename, correct,n,guess;
 	int user;
 	int count = 0;
+	int input = 5;
 	int times = 0;
 	int num = 0;
 	//ifstream file;
 	bool end = false;
 	bool right = false;
 	puzzle *cross = new puzzle();
-	
-	cout<<"From the menu below, please choose a crossword puzzle to complete."<<endl;
+	cout<<"=====Main Menu====="<<endl;
+	cout<<"1. Harry Potter Puzzle"<<endl;
+	cout<<"2. How I Met Your Mother Puzzle"<<endl;
+	cout<<"3. Seinfield Puzzle"<<endl;
+	cout<<"4. Sick of Puzzles Puzzle"<<endl;
+	cout<<"5. Quit"<<endl;
+
+	cout<<"From the menu above, please choose a crossword puzzle to complete by entering the number in front of it."<<endl;
 	cout<<endl;
-	
-	while(end != true)
+	cin >>input;
+
+	while(input != 5)
 	{
 		menu();
-		
+
 		cin >> user;
 		cin.clear();
 		cin.ignore(10000,'\n');
 
-		switch(user)
-		{
-			case 1:
+
+			if (input == 1)
 			{
 				filename = "Hclues.txt";
 				if(count < 1)
@@ -185,8 +192,8 @@ int main()
 				//cross->check();
 				break;
 			}
-			
-			case 2:
+
+            if (input==2)
 			{
 				filename = "HIclues.txt";
 				if(count < 1)
@@ -203,8 +210,8 @@ int main()
 				}
 				break;
 			}
-			
-			case 3:
+
+			if (input==3)
 			{
 				filename = "Sclues.txt";
 				if(count < 1)
@@ -217,8 +224,8 @@ int main()
 				guessing(times);
 				break;
 			}
-			
-			case 4:
+
+			if (input==4)
 			{
 				filename = "Xclues.txt";
 				if(count < 1)
@@ -231,26 +238,22 @@ int main()
 				guessing(times);
 				break;
 			}
-			
-			case 5:
+
+			if (input==5)
 			{
 				cout<<"Goodbye!"<<endl;
 				end = true;
 				break;
 			}
-			default:
+			else
 			{
 				cout<<"error"<<endl;
 				break;
 			}
+			cout<<"From the menu below, please choose a crossword puzzle to complete by entering the number in front of it."<<endl;
+            cout<<endl;
+            cin >>input;
 		}
 
-	}
-		
-	
-	
-	
 
-	
-	return 0;
 }
